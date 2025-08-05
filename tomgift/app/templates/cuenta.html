@@ -1,0 +1,32 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+<section class="account-section">
+    <h2>Mi Cuenta</h2>
+    <p><strong>Usuario:</strong> {{ user_data.username }}</p>
+    <p><strong>Correo:</strong> {{ user_data.email }}</p>
+    <p><strong>Fecha de registro:</strong> {{ user_data.created_at }}</p>
+
+    <form method="POST" action="{{ url_for('user_routes.cuenta') }}">
+        <h3>Cambiar contraseña</h3>
+        <input type="hidden" name="change_password" value="1">
+        <input type="password" name="current_password" placeholder="Contraseña actual" required>
+        <input type="password" name="new_password" placeholder="Nueva contraseña" required>
+        <input type="password" name="confirm_password" placeholder="Confirmar nueva contraseña" required>
+        <button type="submit">Cambiar</button>
+    </form>
+
+    <form method="POST" action="{{ url_for('user_routes.cuenta') }}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?');">
+        <input type="hidden" name="delete_account" value="1">
+        <button type="submit" class="danger-btn">Eliminar cuenta</button>
+    </form>
+</section>
+
+{% if error %}
+    <div class="flash-message error">{{ error }}</div>
+{% endif %}
+
+{% if success %}
+    <div class="flash-message success">{{ success }}</div>
+{% endif %}
+{% endblock %}

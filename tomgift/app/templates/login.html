@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Iniciar sesión - TOMGIFT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <h1>Iniciar sesión</h1>
+
+        {% if error %}
+            <div class="auth-error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" class="auth-form">
+            <input 
+                type="text" 
+                name="username" 
+                placeholder="Nombre de usuario" 
+                class="auth-input {% if field_error == 'username' %}input-error{% endif %}" 
+                required 
+            />
+
+            <input 
+                type="password" 
+                name="password" 
+                placeholder="Contraseña" 
+                class="auth-input {% if field_error == 'password' %}input-error{% endif %}" 
+                required 
+            />
+
+            <button type="submit" class="auth-button">Entrar</button>
+        </form>
+
+        <p class="auth-link">¿No tienes cuenta? <a href="{{ url_for('auth.register') }}">Regístrate aquí</a></p>
+    </div>
+</body>
+</html>

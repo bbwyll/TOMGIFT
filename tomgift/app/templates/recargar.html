@@ -1,0 +1,44 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+<section class="recargar-section">
+    <h2>💳 Recargar saldo</h2>
+
+    <div class="recargar-pasos">
+        <!-- Paso 1 -->
+        <div class="paso">
+            <h3>Paso 1: Realiza una transferencia bancaria</h3>
+            <p>El monto mínimo es de <strong>$200 MXN</strong>. Realiza la transferencia a la siguiente cuenta:</p>
+            <ul class="datos-bancarios">
+                <li><strong>Banco:</strong> BBVA</li>
+                <li><strong>Cuenta:</strong> 1234567890</li>
+                <li><strong>CLABE:</strong> 012345678901234567</li>
+                <li><strong>Beneficiario:</strong> TOMGIFT S.A.</li>
+            </ul>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="paso">
+            <h3>Paso 2: Sube el comprobante de pago</h3>
+            <form method="POST" action="/recargar" enctype="multipart/form-data">
+    <label for="monto">Monto enviado (MXN):</label>
+    <input type="number" name="monto" id="monto" placeholder="Ej. 250" min="200" required>
+    <label for="metodo">Método de pago:</label>
+    <select name="metodo" id="metodo" required>
+        <option value="transferencia">Transferencia bancaria</option>
+      </select>
+    <label for="comprobante">Comprobante (imagen o PDF):</label>
+    <input type="file" name="comprobante" id="comprobante" accept="image/*,application/pdf" required>
+    <button type="submit" class="btn-recargar">Enviar para revisión</button>
+      </form>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="paso">
+            <h3>Paso 3: Espera la confirmación</h3>
+            <p>El equipo revisará tu comprobante en un plazo máximo de <strong>24 horas.</strong></p>
+            <p>Recibirás una notificación por correo y tu saldo será actualizado automáticamente.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

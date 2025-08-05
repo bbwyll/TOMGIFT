@@ -1,0 +1,82 @@
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+<h1 class="dashboard-title">🧾 Panel admin</h1>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flash-messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% if recargas %}
+    <div class="recargas-table-container">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Comprobante</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for r in recargas %}
+                <tr>
+                    <td>{{ r.id }}</td>
+                    <td>{{ r.usuario }}</td>
+                    <td>{{ r.email }}</td>
+                    <td>${{ "%.2f"|format(r.monto) }}</td>
+                    <td>{{ r.created_at }}</td>
+                    <td>
+                        {% if r.estado == 'pendiente' %}
+                            <span class="estado estado-pendiente">Pendiente</span>
+                        {% elif r.estado == 'aprobada' %}
+                            <span class="estado estado-aprobada">Aprobada</span>
+                        {% elif r.estado == 'rechazada' %}
+                            <span class="estado estado-rechazada">Rechazada</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if r.comprobante %}
+                            <a href="{{ url_for('admin_routes.servir_comprobante', nombre_archivo=r.comprobante) }}" target="_blank">
+                                <img src="{{ url_for('admin_routes.servir_comprobante', nombre_archivo=r.comprobante) }}"
+                                     class="comprobante-thumb"
+                                     alt="Comprobante"
+                                     style="max-height: 80px; border-radius: 5px;">
+                            </a>
+                        {% else %}
+                            <span>No disponible</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if r.estado == 'pendiente' %}
+                            <form method="GET" action="{{ url_for('admin_routes.aprobar', id=r.id) }}" style="display:inline">
+                                <button type="submit" class="btn btn-approve">✅ Aprobar</button>
+                            </form>
+                            <form method="GET" action="{{ url_for('admin_routes.rechazar', id=r.id) }}" style="display:inline">
+                                <button type="submit" class="btn btn-reject">❌ Rechazar</button>
+                            </form>
+                        {% else %}
+                            <span>-</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p class="no-recargas">No hay recargas registradas.</p>
+{% endif %}
+
+{% endblock %}
+

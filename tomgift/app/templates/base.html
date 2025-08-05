@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOMGIFT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+
+    <header class="main-header">
+        <h1 class="logo">🎁 TOMGIFT</h1>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="main-footer">
+        <p>&copy; 2025 TOMGIFT. Todos los derechos reservados.
+            by @bbwyll
+        </p>
+    </footer>
+
+</body>
+</html>

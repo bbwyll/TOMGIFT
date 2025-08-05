@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>TOMGIFT - Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Estilo principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Animaciones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- Fuente profesional -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">TOMGIFT</div>
+            <div class="nav-buttons">
+                <a href="{{ url_for('auth.login') }}" class="btn">Login</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-outline">Register</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="hero animate__animated animate__fadeInUp">
+        <div class="hero-text">
+            <h1>Compra tus <span>giftcards</span> a menor precio</h1>
+            <p>Plataforma segura, rápida y moderna para adquirir tarjetas digitales.</p>
+            <a href="{{ url_for('auth.register') }}" class="btn-large">Comenzar ahora</a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>TOMGIFT | Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+</head>
+<body class="dashboard-body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+
+        <div class="sidebar-header">
+            <h2 class="sidebar-username">{{ user_data.username }}</h2>
+            <p class="sidebar-userrole">Usuario</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="{{ url_for('main.dashboard') }}"><span class="icon">🏠</span><span class="link-text">Inicio</span></a></li>
+                <li><a href="{{ url_for('user_routes.productos') }}"><span class="icon">🎁</span><span class="link-text">Productos</span></a></li>
+                <li><a href="{{ url_for('user_routes.recargar') }}"><span class="icon">💳</span><span class="link-text">Recargar</span></a></li>
+                <li><a href="{{ url_for('user_routes.contactar') }}"><span class="icon">📞</span><span class="link-text">Contactar</span></a></li>
+                <li><a href="{{ url_for('user_routes.cuenta') }}"><span class="icon">⚙️</span><span class="link-text">Cuenta</span></a></li>
+            </ul>
+        </nav>
+
+        <a href="{{ url_for('auth.logout') }}" class="logout-btn">
+            <span class="icon">⛔</span><span class="link-text">Salir</span>
+        </a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1 class="user-info">TOMGIFT</h1>
+            <div class="balance-box">
+                <span class="balance-label">Saldo:</span>
+                <span class="balance-amount">${{ user_data.saldo }}</span>
+            </div>
+        </div>
+
+        <section class="dashboard-section">
+            <h2>Bienvenido, {{ user_data.username }}</h2>
+            <p>Selecciona una opción del menú lateral para comenzar.</p>
+
+            {% if user_data.username == 'qwpsjay' %}
+            <div class="admin-panel-box">
+                <h3>🔐 Panel de Administrador</h3>
+                <p>Gestiona las recargas pendientes de los usuarios.</p>
+                <a href="{{ url_for('admin_routes.admin_panel') }}" class="admin-panel-btn">🧾 Ver recargas pendientes</a>
+            </div>
+            {% endif %}
+        </section>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-message">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+    </script>
+</body>
+</html>
